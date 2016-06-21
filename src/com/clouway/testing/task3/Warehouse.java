@@ -15,13 +15,26 @@ public class Warehouse {
         }
     }
 
-    public boolean sellMerchandise(String objectType, String objectModel, int objectPrice){
-
-        return false;
-    }
-
     public Merchandise getMerchandiseAtPosition(int i) {
         Merchandise temp = stock.get(i);
         return temp;
     }
+
+    public boolean sellMerchandise(String objectType, String objectModel, int objectPrice) throws WarehouseIsEmptyException {
+        if(stock.isEmpty()){
+            throw new WarehouseIsEmptyException();
+        }else {
+            for (int i = 0; i < stock.size(); i++) {
+                Merchandise temp = stock.get(i);
+                if (objectType.equals(temp.getType()) && objectModel.equals(temp.getModel()) && objectPrice >= temp.price) {
+                    stock.remove(i);
+                    spaceForMerchandise++;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 }
