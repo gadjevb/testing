@@ -27,4 +27,9 @@ public class SumatorTest {
     public void illegalArgumentExceptionTest(){
         addition.sumStrings(null,"3");
     }
+
+    @After
+    public void teardown(){
+        addition = null;
+    }
 }
