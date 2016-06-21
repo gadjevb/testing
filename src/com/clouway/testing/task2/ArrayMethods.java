@@ -2,7 +2,11 @@ package com.clouway.testing.task2;
 
 public class ArrayMethods {
 
-    public int getMinElement(int arr[]) throws IndexOutOfBoundsException { // returns the minimal element of the array
+    public int getElement(int arr[], int position) throws IndexOutOfBoundsException {
+        return arr[position];
+    }
+
+    public int getMinElement(int arr[]) throws NullPointerException { // returns the minimal element of the array
         int flag = arr[0];
         for(int i = 1; i < arr.length; i++){
             if(flag > arr[i]){
@@ -12,7 +16,7 @@ public class ArrayMethods {
         return flag;
     }
 
-    public int getSumOfArrayElements(int arr[]) throws IndexOutOfBoundsException { // returns the sum of the elements in the array
+    public int getSumOfArrayElements(int arr[]) throws NullPointerException { // returns the sum of the elements in the array
         int sum = 0;
         for(int i = 0; i < arr.length; i++){
             sum = sum + arr[i];
@@ -20,7 +24,7 @@ public class ArrayMethods {
         return sum;
     }
 
-    public String printArray(int arr[]) throws IndexOutOfBoundsException { // prints all elements of the array
+    public String printArray(int arr[]) throws NullPointerException { // prints all elements of the array
         String temp = "";
         for(int i = 0; i < arr.length; i++){
             temp = temp + arr[i] + " ";
@@ -28,7 +32,7 @@ public class ArrayMethods {
         return temp;
     }
 
-    public void sortArray(int arr[], int left, int right) throws IndexOutOfBoundsException {
+    public void sortArray(int arr[], int left, int right) throws NullPointerException {
         int temp = partition(arr,left,right);
         if(left < temp - 1){
             sortArray(arr,left,temp - 1);
@@ -38,7 +42,7 @@ public class ArrayMethods {
         }
     }
 
-    public int partition(int mas[], int left, int right) throws IndexOutOfBoundsException { // partition and sorting in quickSort
+    public int partition(int mas[], int left, int right) throws NullPointerException { // partition and sorting in quickSort
         int i = left, j = right;
         int temp;
         int pos = mas[(left + right) / 2];
@@ -60,7 +64,7 @@ public class ArrayMethods {
         return i;
     }
 
-    public void reverseArray(int arr[]) throws IndexOutOfBoundsException { // reversing the array
+    public void reverseArray(int arr[]) throws NullPointerException { // reversing the array
         int left = 0, right = arr.length - 1;
         while(left < right){
             int temp = arr[left];

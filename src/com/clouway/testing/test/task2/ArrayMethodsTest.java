@@ -8,6 +8,7 @@ public class ArrayMethodsTest {
     int arr[];
     int sortedArr[];
     int reversedArr[];
+    int emptyArr[];
     ArrayMethods testTool;
 
     @Before
@@ -43,6 +44,16 @@ public class ArrayMethodsTest {
     public void reverseArrayTest(){
         testTool.reverseArray(arr);
         assertArrayEquals(reversedArr, arr);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void arrayNullPointerExceptionTest(){
+        testTool.getMinElement(emptyArr);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void arrayIndexOutOfBoundsExceptionTest(){
+        testTool.getElement(arr, 15);
     }
 
     @After
