@@ -6,30 +6,21 @@ import org.junit.*;
 
 public class SumatorTest {
 
-    Sumator addition;
-
-    @Before
-    public void setup(){
-        addition = new Sumator();
-    }
-
     @Test
-    public void correctSumOfStringsTest(){
+    public void correctSumOfStrings(){
+        Sumator addition = new Sumator();
         assertEquals(11,addition.sumStrings("5","6"));
     }
 
     @Test(expected = NumberFormatException.class)
-    public void numberFormatExceptionTest(){
+    public void numberFormatException(){
+        Sumator addition = new Sumator();
         addition.sumStrings("a12","11");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void illegalArgumentExceptionTest(){
+    public void illegalArgumentException(){
+        Sumator addition = new Sumator();
         addition.sumStrings(null,"3");
-    }
-
-    @After
-    public void teardown(){
-        addition = null;
     }
 }
