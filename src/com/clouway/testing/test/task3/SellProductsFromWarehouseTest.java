@@ -33,7 +33,7 @@ public class SellProductsFromWarehouseTest {
      */
 
     @Test
-    public void sellMerchandise(){
+    public void addAndSellMerchandise(){
         boolean flag = false;
         Warehouse warehouse = new Warehouse();
         Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
