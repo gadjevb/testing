@@ -5,6 +5,8 @@ import com.clouway.testing.task3.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
+
+import com.google.common.collect.Lists;
 import org.junit.*;
 import java.util.*;
 
@@ -114,12 +116,12 @@ public class WarehouseTDD {
             e.printStackTrace();
         }
         List<Merchandise> goods = warehouse.listMerchandiseByPrice();
-        assertThat(goods.get(0).getType(), is(equalTo("Televisor")));
-        assertThat(goods.get(0).getModel(), is(equalTo("Neo")));
-        assertThat(goods.get(0).getPrice(), is(equalTo(430)));
-        assertThat(goods.get(1).getType(), is(equalTo("Fridge")));
-        assertThat(goods.get(1).getModel(), is(equalTo("Bosch")));
-        assertThat(goods.get(1).getPrice(), is(equalTo(800)));
+        assertThat(goods, is(equalTo(
+                Lists.newArrayList(
+                        new Merchandise("Televisor","Neo",430),
+                        new Merchandise("Fridge","Bosch",800)
+                )
+        )));
     }
 
     @Test

@@ -62,5 +62,4 @@ public class Warehouse {
         Collections.sort(stock,new PriceComparator());
         return stock;
     }
-
 }
