@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class ArrayMethodsTest {
@@ -26,11 +27,16 @@ public class ArrayMethodsTest {
     @Test
     public void printArray(){
         int arr[] = {5,1,9,2,6,3,4,8,7,0};
-        ArrayMethods testTool = new ArrayMethods();
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-        testTool.printArray(arr);
-        assertEquals("5 1 9 2 6 3 4 8 7 0 ", output.toString());
+        PrintStream originalOutputStream = System.out;
+        try {
+            ArrayMethods testTool = new ArrayMethods();
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(output));
+            testTool.printArray(arr);
+            assertEquals("5 1 9 2 6 3 4 8 7 0 ", output.toString());
+        }finally {
+            System.setOut(originalOutputStream);
+        }
     }
 
     @Test
@@ -38,7 +44,7 @@ public class ArrayMethodsTest {
         ArrayMethods testTool = new ArrayMethods();
         int arr[] = {5,1,9,2,6,3,4,8,7,0};
         int sortedArr[] = {0,1,2,3,4,5,6,7,8,9};
-        testTool.sortArray(arr, 0, arr.length - 1);
+        testTool.sort(arr);
         assertArrayEquals(sortedArr, arr);
     }
 

@@ -1,31 +1,18 @@
 package com.clouway.testing.test.task3;
 
 import com.clouway.testing.task3.*;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import org.junit.*;
+import java.util.*;
 
 public class WarehouseTDD {
 
     /**
-    The first two test check is the Warehouse and Merchandise objects
-     are created.
-     */
-
-    @Test
-    public void createWarehouseObject(){
-        Warehouse warehouse = new Warehouse();
-        assertNotNull(warehouse);
-    }
-
-    @Test
-    public void createMerchandiseObject(){
-        Merchandise temp = new Merchandise("Televisor","Neo",350);
-        assertNotNull(temp);
-    }
-
-    /**
-    The next two test check the addMerchandise() method for the Warehouse class
-     and the WarehouseIsFullException
+     *The first two test check the addMerchandise() method for the Warehouse class
+     *and the WarehouseIsFullException
      */
 
     @Test
@@ -56,8 +43,8 @@ public class WarehouseTDD {
     }
 
     /**
-     The next three test check the sellMerchandise() method when the searched product is found,
-     when the searched product is NOT found and the WarehouseIsEmptyException
+     *The next three test check the sellMerchandise() method when the searched product is found,
+     *when the searched product is NOT found and the WarehouseIsEmptyException
      */
 
     @Test
@@ -111,35 +98,33 @@ public class WarehouseTDD {
     }
 
     /**
-    The last two test check for the sortByPriceMethod() in Warehouse
-     when there is merchandise and when there is NO merchandise
+     *The last two test check for the sortByPriceMethod() in Warehouse
+     *when there is merchandise and when there is NO merchandise
      */
 
     @Test
     public void sortWarehouseMerchandiseByPrice(){
         Warehouse warehouse = new Warehouse();
-        Warehouse sortedWarehouse = new Warehouse();
         Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
         Merchandise merch2 = new Merchandise("Televisor","Neo",430);
         try {
             warehouse.addMerchandise(merch1);
             warehouse.addMerchandise(merch2);
-            sortedWarehouse.addMerchandise(merch2);
-            sortedWarehouse.addMerchandise(merch1);
         } catch (WarehouseIsFullException e) {
             e.printStackTrace();
         }
-        warehouse.sortByPrice();
-        Merchandise temp = warehouse.getMerchandiseAtPosition(0);
-        Merchandise sortedTemp = sortedWarehouse.getMerchandiseAtPosition(0);
-        assertEquals(temp.getType(), sortedTemp.getType());
-        assertEquals(temp.getModel(), sortedTemp.getModel());
-        assertEquals(temp.getPrice(), sortedTemp.getPrice());
+        List<Merchandise> goods = warehouse.listMerchandiseByPrice();
+        assertThat(goods.get(0).getType(), is(equalTo("Televisor")));
+        assertThat(goods.get(0).getModel(), is(equalTo("Neo")));
+        assertThat(goods.get(0).getPrice(), is(equalTo(430)));
+        assertThat(goods.get(1).getType(), is(equalTo("Fridge")));
+        assertThat(goods.get(1).getModel(), is(equalTo("Bosch")));
+        assertThat(goods.get(1).getPrice(), is(equalTo(800)));
     }
 
     @Test
     public void sortEmptyWarehouseMerchandiseByPrice(){
         Warehouse warehouse = new Warehouse();
-        warehouse.sortByPrice();
+        warehouse.listMerchandiseByPrice();
     }
 }

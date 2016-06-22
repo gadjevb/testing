@@ -26,15 +26,7 @@ public class ArrayMethods {
         }
     }
 
-    public void sortArray(int arr[], int left, int right) throws NullPointerException {
-        int temp = partition(arr,left,right);
-        if(left < temp - 1){
-            sortArray(arr,left,temp - 1);
-        }
-        if(temp < right) {
-            sortArray(arr, temp, right);
-        }
-    }
+
 
     public void reverseArray(int arr[]) throws NullPointerException { // reversing the array
         int left = 0, right = arr.length - 1;
@@ -44,6 +36,20 @@ public class ArrayMethods {
             arr[right] = temp;
             left++;
             right--;
+        }
+    }
+
+    public void sort(int[] arr) {
+        sortArray(arr, 0, arr.length - 1);
+    }
+
+    private void sortArray(int arr[], int left, int right) throws NullPointerException {
+        int temp = partition(arr,left,right);
+        if(left < temp - 1){
+            sortArray(arr,left,temp - 1);
+        }
+        if(temp < right) {
+            sortArray(arr, temp, right);
         }
     }
 
@@ -68,5 +74,4 @@ public class ArrayMethods {
         }
         return i;
     }
-
 }
