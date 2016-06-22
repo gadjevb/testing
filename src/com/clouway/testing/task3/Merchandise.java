@@ -28,33 +28,15 @@ public class Merchandise {
      */
 
     @Override
-    public boolean equals(Object obj){
-        Merchandise temp = (Merchandise) obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Merchandise)) return false;
 
-        if(this == obj){
-            return true;
-        }
+        Merchandise that = (Merchandise) o;
 
-        if(obj == null){
-            return false;
-        }
+        if (price != that.price) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        return model != null ? model.equals(that.model) : that.model == null;
 
-        if(this.getClass() != obj.getClass()){
-            return false;
-        }
-
-        if(this.type == temp.type){
-            if(this.model == temp.model){
-                if(this.price == temp.price){
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
-                return false;
-            }
-        }else{
-            return false;
-        }
     }
 }

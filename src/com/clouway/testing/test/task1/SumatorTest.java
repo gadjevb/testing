@@ -13,13 +13,13 @@ public class SumatorTest {
     }
 
     @Test(expected = NumberFormatException.class)
-    public void numberFormatException(){
+    public void incorrectArguments(){
         Sumator addition = new Sumator();
         addition.sumStrings("a12","11");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void illegalArgumentException(){
+    public void argumentAreNull(){
         Sumator addition = new Sumator();
         addition.sumStrings(null,"3");
     }

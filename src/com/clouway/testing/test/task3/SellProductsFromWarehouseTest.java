@@ -10,28 +10,11 @@ import com.google.common.collect.Lists;
 import org.junit.*;
 import java.util.*;
 
-public class WarehouseTDD {
+public class SellProductsFromWarehouseTest {
 
     /**
-     *The first two test check the addMerchandise() method for the Warehouse class
-     *and the WarehouseIsFullException
+     *Testing the WarehouseIsFullException
      */
-
-    @Test
-    public void addMerchandiseToWarehouse() {
-        Warehouse warehouse = new Warehouse();
-        Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
-        Merchandise temp = new Merchandise("Fridge","Bosch",800);
-        try {
-            warehouse.addMerchandise(merch1);
-        } catch (WarehouseIsFullException e) {
-            e.getMessage();
-        }
-        Merchandise tempMerch1 = warehouse.getMerchandiseAtPosition(0);
-        assertEquals(temp.getType(),tempMerch1.getType());
-        assertEquals(temp.getModel(),tempMerch1.getModel());
-        assertEquals(temp.getPrice(),tempMerch1.getPrice());
-    }
 
     @Test(expected = WarehouseIsFullException.class)
     public void addMerchandiseToFullWarehouse() throws WarehouseIsFullException {
@@ -45,7 +28,7 @@ public class WarehouseTDD {
     }
 
     /**
-     *The next three test check the sellMerchandise() method when the searched product is found,
+     *Testing the sellMerchandise() method when the searched product is found,
      *when the searched product is NOT found and the WarehouseIsEmptyException
      */
 
@@ -100,7 +83,7 @@ public class WarehouseTDD {
     }
 
     /**
-     *The last two test check for the sortByPriceMethod() in Warehouse
+     *Testing the sortByPriceMethod() in Warehouse
      *when there is merchandise and when there is NO merchandise
      */
 
@@ -122,11 +105,5 @@ public class WarehouseTDD {
                         new Merchandise("Fridge","Bosch",800)
                 )
         )));
-    }
-
-    @Test
-    public void sortEmptyWarehouseMerchandiseByPrice(){
-        Warehouse warehouse = new Warehouse();
-        warehouse.listMerchandiseByPrice();
     }
 }
