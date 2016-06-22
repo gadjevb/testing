@@ -7,7 +7,7 @@ public class Warehouse {
     private final ArrayList<Merchandise> stock = new ArrayList<>();
 
     /**
-     *Adding merchandise to stock method -> addMerchandise() adds the given merchandise to the stock list after a check for space in the Warehouse
+     *Adds merchandise to stock method -> addMerchandise() adds the given merchandise to the stock list after a check for space in the Warehouse
      *If spaceForMerchandise is greater than 0, the merchandise will be saved and spaceForMerchandise will be decremented,
      *otherwise WarehouseIsFullException will be thrown.
      */
@@ -32,7 +32,7 @@ public class Warehouse {
     }
 
     /**
-     *Selling merchandise method -> sellMerchandise() sells merchandise by the given characteristics and budget of the buyer,
+     *Sells merchandise -> sellMerchandise() method sells merchandise by the given characteristics and budget of the buyer,
      *if a merchandise that fulfills the characteristics is found a True will be returned and the merchandise will be removed from the warehouse
      *and spaceForMerchandise will be incremented, if there is no such merchandise False will be returned this means that there is no such merchandise that
      *fulfills the buyer requirements. If the Warehouse is empty the method will throw WarehouseIsEmptyException.
