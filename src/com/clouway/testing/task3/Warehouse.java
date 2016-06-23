@@ -54,8 +54,10 @@ public class Warehouse {
         return false;
     }
 
-    /*
-     sortByPrice() method, I defined a custom comparator because it makes life easier
+    /**
+     *Sorts the list that contains the Merchandise objects by their price,
+     *overriden comparator for the Merchandise class is being used, the method will
+     *@return sorted ArrayList of Merchandise objects.
      */
 
     public ArrayList<Merchandise> listMerchandiseByPrice() {

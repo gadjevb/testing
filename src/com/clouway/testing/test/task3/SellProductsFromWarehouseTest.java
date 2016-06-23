@@ -13,7 +13,9 @@ import java.util.*;
 public class SellProductsFromWarehouseTest {
 
     /**
-     *Testing the WarehouseIsFullException
+     *Adds merchandise to full warehouse.
+     *For the test the space in the warehouse contains space for only two objects,
+     *on the third try to add object WarehouseIsFullException will be thrown.
      */
 
     @Test(expected = WarehouseIsFullException.class)
@@ -28,8 +30,9 @@ public class SellProductsFromWarehouseTest {
     }
 
     /**
-     *Testing the sellMerchandise() method when the searched product is found,
-     *when the searched product is NOT found and the WarehouseIsEmptyException
+     *Adds and sells merchandise methods are tested in the first two tests when the searched product is found
+     *and when the searched product is NOT found. The third test is for the WarehouseIsEmptyException when the user tries to sell
+     *merchandise from empty warehouse.
      */
 
     @Test
@@ -83,8 +86,9 @@ public class SellProductsFromWarehouseTest {
     }
 
     /**
-     *Testing the sortByPriceMethod() in Warehouse
-     *when there is merchandise and when there is NO merchandise
+     *Sorts the warehouse merchandise by price.
+     *Lists is used from the Guava library,
+     *equals() is overriden in the Merchandise class.
      */
 
     @Test
