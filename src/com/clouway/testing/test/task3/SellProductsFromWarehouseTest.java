@@ -13,9 +13,9 @@ import java.util.*;
 public class SellProductsFromWarehouseTest {
 
     /**
-     *Adds merchandise to full warehouse.
-     *For the test the space in the warehouse contains space for only two objects,
-     *on the third try to add object WarehouseIsFullException will be thrown.
+     *Adds merchandise to full warehouse, the standard
+     *space for Merchandise is 200 units, if we try to add
+     *more than 200 an WarehouseIsFullException will be thrown
      */
 
     @Test(expected = WarehouseIsFullException.class)
