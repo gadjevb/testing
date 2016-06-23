@@ -3,12 +3,14 @@ package com.clouway.testing.task3;
 public class Merchandise {
     private String type;
     private String model;
+    private int quantity;
     protected int price;
 
-    public Merchandise(String type, String model, int price){
+    public Merchandise(String type, String model, int price, int quantity){
         this.type = type;
         this.model = model;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public String getType(){
@@ -21,6 +23,14 @@ public class Merchandise {
 
     public int getPrice(){
         return price;
+    }
+
+    public int getQuantity(){
+        return quantity;
+    }
+
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
     }
 
     /**

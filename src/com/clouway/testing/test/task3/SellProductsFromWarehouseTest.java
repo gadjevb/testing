@@ -21,12 +21,8 @@ public class SellProductsFromWarehouseTest {
     @Test(expected = WarehouseIsFullException.class)
     public void addMerchandiseToFullWarehouse() throws WarehouseIsFullException {
         Warehouse warehouse = new Warehouse();
-        Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
+        Merchandise merch1 = new Merchandise("Fridge","Bosch",800,210);
         warehouse.addMerchandise(merch1);
-        Merchandise merch2 = new Merchandise("Fridge","Bosch",800);
-        warehouse.addMerchandise(merch2);
-        Merchandise merch3 = new Merchandise("Fridge","Bosch",800);
-        warehouse.addMerchandise(merch3);
     }
 
     /**
@@ -39,8 +35,8 @@ public class SellProductsFromWarehouseTest {
     public void addAndSellMerchandise(){
         boolean flag = false;
         Warehouse warehouse = new Warehouse();
-        Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
-        Merchandise merch2 = new Merchandise("Televisor","Neo",430);
+        Merchandise merch1 = new Merchandise("Fridge","Bosch",800,30);
+        Merchandise merch2 = new Merchandise("Televisor","Neo",430,120);
         try {
             warehouse.addMerchandise(merch1);
             warehouse.addMerchandise(merch2);
@@ -48,19 +44,20 @@ public class SellProductsFromWarehouseTest {
             e.printStackTrace();
         }
         try {
-            flag = warehouse.sellMerchandise("Televisor","Neo", 430);
+            flag = warehouse.sellMerchandise("Televisor","Neo", 430, 50);
         } catch (WarehouseIsEmptyException e) {
             e.printStackTrace();
         }
         assertTrue(flag);
+        assertEquals(70,warehouse.getMerchandiseAtPosition(1).getQuantity());
     }
 
     @Test
     public void wantedMerchandiseNotFoundInWarehouse(){
         boolean flag = true;
         Warehouse warehouse = new Warehouse();
-        Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
-        Merchandise merch2 = new Merchandise("Televisor","Neo",430);
+        Merchandise merch1 = new Merchandise("Fridge","Bosch",800,20);
+        Merchandise merch2 = new Merchandise("Televisor","Neo",430,20);
         try {
             warehouse.addMerchandise(merch1);
             warehouse.addMerchandise(merch2);
@@ -68,7 +65,7 @@ public class SellProductsFromWarehouseTest {
             e.printStackTrace();
         }
         try {
-            flag = warehouse.sellMerchandise("Microwave","Bosch",80);
+            flag = warehouse.sellMerchandise("Microwave","Bosch",80,20);
         } catch (WarehouseIsEmptyException e) {
             e.printStackTrace();
         }
@@ -79,7 +76,7 @@ public class SellProductsFromWarehouseTest {
     public void sellMerchandiseFromEmptyWarehouse(){
         Warehouse warehouse = new Warehouse();
         try {
-            warehouse.sellMerchandise("Televisor","Sony",560);
+            warehouse.sellMerchandise("Televisor","Sony",560,20);
         } catch (WarehouseIsEmptyException e) {
             e.getMessage();
         }
@@ -94,8 +91,8 @@ public class SellProductsFromWarehouseTest {
     @Test
     public void sortWarehouseMerchandiseByPrice(){
         Warehouse warehouse = new Warehouse();
-        Merchandise merch1 = new Merchandise("Fridge","Bosch",800);
-        Merchandise merch2 = new Merchandise("Televisor","Neo",430);
+        Merchandise merch1 = new Merchandise("Fridge","Bosch",800,10);
+        Merchandise merch2 = new Merchandise("Televisor","Neo",430,10);
         try {
             warehouse.addMerchandise(merch1);
             warehouse.addMerchandise(merch2);
@@ -105,8 +102,8 @@ public class SellProductsFromWarehouseTest {
         List<Merchandise> goods = warehouse.listMerchandiseByPrice();
         assertThat(goods, is(equalTo(
                 Lists.newArrayList(
-                        new Merchandise("Televisor","Neo",430),
-                        new Merchandise("Fridge","Bosch",800)
+                        new Merchandise("Televisor","Neo",430,10),
+                        new Merchandise("Fridge","Bosch",800,10)
                 )
         )));
     }
