@@ -3,7 +3,6 @@ package com.clouway.testing.test.task4;
 
 import com.clouway.testing.task4.Endpoint;
 import com.clouway.testing.task4.EndpointFilter;
-import com.clouway.testing.task4.StartsWithKeyWord;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -14,14 +13,14 @@ import static org.junit.Assert.assertTrue;
 
 public class EndpointFilterTest {
     @Rule public JUnitRuleMockery context = new JUnitRuleMockery();
-    Endpoint endpoint = context.mock(Endpoint.class);
+    private Endpoint endpoint = context.mock(Endpoint.class);
 
     /**
      * Mocks Endpoint, the test returns True, also checks for invocation
      */
 
     @Test
-    public void filterEndpointTrue(){
+    public void endpointFilterReturnsTrue(){
         EndpointFilter endpointFilter = new EndpointFilter(endpoint);
         context.checking(new Expectations(){{
             oneOf(endpoint).matches("user");
@@ -35,7 +34,7 @@ public class EndpointFilterTest {
      */
 
     @Test
-    public void filterEndpointFalse(){
+    public void endpointFilterReturnsFalse(){
         EndpointFilter endpointFilter = new EndpointFilter(endpoint);
         context.checking(new Expectations(){{
             oneOf(endpoint).matches("user");
@@ -45,38 +44,45 @@ public class EndpointFilterTest {
     }
 
     /**
-     * Adds Endpoint and StartsWithKeyWord objects to the EndpointFilter and checks if
-     * matches() methods (in StartsWithKeyWord class and Endpoint interface) are invoked
-     * and shouldFilter() method returns True with correct keyWord.
+     * Mocks several Endpoints, all of them Fail
      */
 
     @Test
-    public void filterAddressWithKeyWordReturnsTrue(){ //Happy path
-        final String keyWord = "/user";
-        StartsWithKeyWord urls = new StartsWithKeyWord("/user/Pictures");
-        EndpointFilter endpointFilter = new EndpointFilter(endpoint,urls);
-        context.checking(new Expectations(){{
-            oneOf(endpoint).matches(keyWord);
-            will(returnValue(true));
+    public void filterSeveralEndpointsallOfThemReturnFalse(){
+        Endpoint endpoint0 = context.mock(Endpoint.class, "mock0");
+        Endpoint endpoint1 = context.mock(Endpoint.class, "mock1");
+        Endpoint endpoint2 = context.mock(Endpoint.class, "mock2");
+        EndpointFilter endpointFilter = new EndpointFilter(endpoint0,endpoint1,endpoint2);
+        context.checking(new Expectations() {{
+            oneOf(endpoint0).matches("/user");
+            will(returnValue(false));
+
+            oneOf(endpoint1).matches("/user");
+            will(returnValue(false));
+
+            oneOf(endpoint2).matches("/user");
+            will(returnValue(false));
         }});
-        assertTrue(endpointFilter.shouldFilter(keyWord));
+        assertFalse(endpointFilter.shouldFilter("/user"));
     }
 
     /**
-     * Adds Endpoint and StartsWithKeyWord objects to the EndpointFilter and checks if
-     * matches() methods (in StartsWithKeyWord class and Endpoint interface) are invoked
-     * and shouldFilter() method returns False without the correct keyWord.
+     * Mocks several Endpoints, at least one of them must be True
      */
 
     @Test
-    public void filterAddressWithKeyWordReturnsFalse(){
-        final String keyWord = "/user";
-        StartsWithKeyWord urls = new StartsWithKeyWord("/guest/Pictures");
-        EndpointFilter endpointFilter = new EndpointFilter(endpoint,urls);
-        context.checking(new Expectations(){{
-            oneOf(endpoint).matches(keyWord);
+    public void filterSeveralEndpointsAtLeastOneWillReturnTrue(){
+        Endpoint endpoint0 = context.mock(Endpoint.class, "mock0");
+        Endpoint endpoint1 = context.mock(Endpoint.class, "mock1");
+        Endpoint endpoint2 = context.mock(Endpoint.class, "mock2");
+        EndpointFilter endpointFilter = new EndpointFilter(endpoint0,endpoint1,endpoint2);
+        context.checking(new Expectations() {{
+            oneOf(endpoint0).matches("/user");
             will(returnValue(false));
+
+            oneOf(endpoint1).matches("/user");
+            will(returnValue(true));
         }});
-        assertFalse(endpointFilter.shouldFilter(keyWord));
+        assertTrue(endpointFilter.shouldFilter("/user"));
     }
 }

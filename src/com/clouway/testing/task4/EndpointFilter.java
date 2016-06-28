@@ -9,7 +9,7 @@ public class EndpointFilter {
 
     public boolean shouldFilter(String url) {
         for(Endpoint each: endpoints){
-            if(each.matches(url)){
+           if(each.matches(url)){
                 return true;
             }
         }
