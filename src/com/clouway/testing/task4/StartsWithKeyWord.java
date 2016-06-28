@@ -8,10 +8,7 @@ public class StartsWithKeyWord implements Endpoint {
     }
 
     public boolean matches(String URL) {
-        if(this.URL.startsWith(URL)){
-            return true;
-        }
-        return false;
+        return this.URL.startsWith(URL);
     }
 
 }
