@@ -1,7 +1,5 @@
 package com.clouway.testing.task6;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
-
 public class UserRepository { // Service class
     private UserDB userDB;
     private Validator validator;
