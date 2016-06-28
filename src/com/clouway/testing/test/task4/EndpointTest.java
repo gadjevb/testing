@@ -14,20 +14,20 @@ import static org.junit.Assert.assertTrue;
 
 public class EndpointTest {
     @Rule public JUnitRuleMockery context = new JUnitRuleMockery();
+    Endpoint endpoint = context.mock(Endpoint.class);
 
     /**
-     * Mocks Endpoint, the test returns True
+     * Mocks Endpoint, the test returns True, also checks for invocation
      */
 
     @Test
     public void filterEndpointTrue(){
-        Endpoint endpoint = context.mock(Endpoint.class);
         EndpointFilter endpointFilter = new EndpointFilter(endpoint);
         context.checking(new Expectations(){{
             oneOf(endpoint).matches("user");
             will(returnValue(true));
         }});
-        endpointFilter.shouldFilter("user");
+        assertTrue(endpointFilter.shouldFilter("user"));
     }
 
     /**
@@ -36,42 +36,47 @@ public class EndpointTest {
 
     @Test
     public void filterEndpointFalse(){
-        Endpoint endpoint = context.mock(Endpoint.class);
         EndpointFilter endpointFilter = new EndpointFilter(endpoint);
         context.checking(new Expectations(){{
             oneOf(endpoint).matches("user");
             will(returnValue(false));
         }});
-        endpointFilter.shouldFilter("user");
+        assertFalse(endpointFilter.shouldFilter("user"));
     }
 
     /**
-     * Adds StartsWithKeyWord array to the EndpointFilter and checks if
-     * matches() method (in StartsWithKeyWord class) is invoked
-     * and shouldFilter() method returns True whit correct keyWord.
+     * Adds Endpoint and StartsWithKeyWord objects to the EndpointFilter and checks if
+     * matches() methods (in StartsWithKeyWord class and Endpoint interface) are invoked
+     * and shouldFilter() method returns True with correct keyWord.
      */
 
     @Test
     public void filterAddressWithKeyWordReturnsTrue(){ //Happy path
         final String keyWord = "/user";
-        StartsWithKeyWord urls[] = new StartsWithKeyWord[1];
-        urls[0] = new StartsWithKeyWord("/user/Pictures");
-        EndpointFilter endpointFilter = new EndpointFilter(urls);
+        StartsWithKeyWord urls = new StartsWithKeyWord("/user/Pictures");
+        EndpointFilter endpointFilter = new EndpointFilter(endpoint,urls);
+        context.checking(new Expectations(){{
+            oneOf(endpoint).matches(keyWord);
+            will(returnValue(true));
+        }});
         assertTrue(endpointFilter.shouldFilter(keyWord));
     }
 
     /**
-     * Adds StartsWithKeyWord array to the EndpointFilter and checks if
-     * matches() method (in StartsWithKeyWord class) is invoked
-     * and shouldFilter() method returns False whit incorrect keyWord.
+     * Adds Endpoint and StartsWithKeyWord objects to the EndpointFilter and checks if
+     * matches() methods (in StartsWithKeyWord class and Endpoint interface) are invoked
+     * and shouldFilter() method returns False without the correct keyWord.
      */
 
     @Test
     public void filterAddressWithKeyWordReturnsFalse(){
-        final String keyWord = "user";
-        StartsWithKeyWord urls[] = new StartsWithKeyWord[1];
-        urls[0] = new StartsWithKeyWord("/guest/Documents");
-        EndpointFilter endpointFilter = new EndpointFilter(urls);
+        final String keyWord = "/user";
+        StartsWithKeyWord urls = new StartsWithKeyWord("/guest/Pictures");
+        EndpointFilter endpointFilter = new EndpointFilter(endpoint,urls);
+        context.checking(new Expectations(){{
+            oneOf(endpoint).matches(keyWord);
+            will(returnValue(false));
+        }});
         assertFalse(endpointFilter.shouldFilter(keyWord));
     }
 }
