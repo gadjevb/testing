@@ -14,7 +14,7 @@ public class UserRepositoryTest {
     UserRepository userRepository = new UserRepository(userDB,validator);
 
     @Test
-    public void userIsAdult(){ // Happy path
+    public void registerUserThatIsAdultToRemoteDataBase(){ // Happy path
         User adultUser = new User("Borislav","21");
         context.checking(new Expectations(){{
                 oneOf(validator).isValid("21");
@@ -27,7 +27,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void userIsNotAdult(){
+    public void tryToRegisterUserThatIsNotAdultToRemoteDataBase(){
         User adultUser = new User("Borislav","13");
         context.checking(new Expectations(){{
             oneOf(validator).isValid("13");
@@ -37,7 +37,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void userDoesExist() throws UserDoesNotExistException {
+    public void getUserThatIsRegisteredInTheRemoteDataBase() throws UserDoesNotExistException {
         User adultUser = new User("Borislav","21");
         context.checking(new Expectations(){{
             oneOf(validator).isValid("21");
@@ -54,7 +54,7 @@ public class UserRepositoryTest {
     }
 
     @Test(expected = UserDoesNotExistException.class)
-    public void userDoesNotExist() throws UserDoesNotExistException {
+    public void tryToGetUserThatIsNotRegisteredInTheDataBase() throws UserDoesNotExistException {
         User adultUser = new User("Borislav","21");
         context.checking(new Expectations(){{
             oneOf(validator).isValid("21");
