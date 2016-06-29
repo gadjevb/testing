@@ -38,18 +38,10 @@ public class UserRepositoryTest {
 
     @Test
     public void getUserThatIsRegisteredInTheRemoteDataBase() throws UserDoesNotExistException {
-        User adultUser = new User("Borislav","21");
         context.checking(new Expectations(){{
-            oneOf(validator).isValid("21");
-            will(returnValue(true));
-
-            oneOf(userDB).Register(adultUser);
-            will(returnValue(true));
-
             oneOf(userDB).getRegisteredUser("Borislav");
             will(returnValue(true));
         }});
-        userRepository.registerUser(adultUser);
         userRepository.isAdult("Borislav");
     }
 
