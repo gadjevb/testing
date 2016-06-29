@@ -48,7 +48,7 @@ public class EndpointFilterTest {
      */
 
     @Test
-    public void filterSeveralEndpointsallOfThemReturnFalse(){
+    public void allEndpointsAreNotMatching(){
         Endpoint endpoint0 = context.mock(Endpoint.class, "mock0");
         Endpoint endpoint1 = context.mock(Endpoint.class, "mock1");
         Endpoint endpoint2 = context.mock(Endpoint.class, "mock2");
@@ -71,7 +71,7 @@ public class EndpointFilterTest {
      */
 
     @Test
-    public void filterSeveralEndpointsAtLeastOneWillReturnTrue(){
+    public void filterSeveralEndpointsTheLastOneWillMatch(){
         Endpoint endpoint0 = context.mock(Endpoint.class, "mock0");
         Endpoint endpoint1 = context.mock(Endpoint.class, "mock1");
         Endpoint endpoint2 = context.mock(Endpoint.class, "mock2");
@@ -81,6 +81,9 @@ public class EndpointFilterTest {
             will(returnValue(false));
 
             oneOf(endpoint1).matches("/user");
+            will(returnValue(false));
+
+            oneOf(endpoint2).matches("/user");
             will(returnValue(true));
         }});
         assertTrue(endpointFilter.shouldFilter("/user"));
