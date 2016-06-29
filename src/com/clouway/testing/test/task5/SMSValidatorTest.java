@@ -47,8 +47,8 @@ public class SMSValidatorTest {
 
     @Test
     public void textInSmsTitleIsWithIncorrectLength(){
-        String flag = veryLongString(31);
-        assertFalse(validator.isSmsValid(new SMS("0878884433",flag,"Hello there!")));
+        String longTitle = veryLongString(31);
+        assertFalse(validator.isSmsValid(new SMS("0878884433",longTitle,"Hello there!")));
     }
 
 }
